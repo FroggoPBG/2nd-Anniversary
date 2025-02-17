@@ -6,20 +6,21 @@
     <title>Our 2nd Anniversary Quiz</title>
     <style>
         .video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    overflow: hidden;
-    margin-top: 20px;
-}
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            margin-top: 20px;
+        }
 
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -27,23 +28,27 @@
             padding: 20px;
             background: #f0f8ff;
         }
+
         .quiz-container {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+
         .question {
             margin-bottom: 20px;
             padding: 15px;
             border-radius: 5px;
             background: #f8f9fa;
         }
+
         .options {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
+
         button {
             padding: 10px;
             margin: 5px;
@@ -54,27 +59,49 @@
             cursor: pointer;
             transition: background 0.3s;
         }
+
         button:hover {
             background: #45a049;
         }
+
         button:disabled {
             background: #cccccc;
             cursor: not-allowed;
         }
+
         .correct {
             background: #4CAF50 !important;
         }
+
         .incorrect {
             background: #ff4d4d !important;
         }
+
         #result {
             margin-top: 20px;
             padding: 15px;
             border-radius: 5px;
             display: none;
         }
+
         .hearts {
             color: #ff4d6d;
+        }
+
+        .play-button {
+            background: #ff69b4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .play-button:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -90,6 +117,7 @@
                     <button onclick="checkAnswer(1, this)">31st October, 2022</button>
                 </div>
             </div>
+
             <div class="question">
                 <h3>2. What did we eat on our first date?</h3>
                 <div class="options" data-answered="false">
@@ -98,6 +126,7 @@
                     <button onclick="checkAnswer(2, this)">Brunch</button>
                 </div>
             </div>
+
             <div class="question">
                 <h3>3. Where was our first kiss?</h3>
                 <div class="options" data-answered="false">
@@ -106,6 +135,7 @@
                     <button onclick="checkAnswer(3, this)" data-correct="true">North Point Wharf</button>
                 </div>
             </div>
+
             <div class="question">
                 <h3>4. What's my favorite pet name that you call me?</h3>
                 <div class="options" data-answered="false">
@@ -114,6 +144,7 @@
                     <button onclick="checkAnswer(4, this)">Princess Blood Diamond</button>
                 </div>
             </div>
+
             <div class="question">
                 <h3>5. What was our first movie together?</h3>
                 <div class="options" data-answered="false">
@@ -122,6 +153,7 @@
                     <button onclick="checkAnswer(5, this)" data-correct="true">Black Panther</button>
                 </div>
             </div>
+
             <div class="question">
                 <h3>6. What's my most ridiculous fear?</h3>
                 <div class="options" data-answered="false">
@@ -224,28 +256,23 @@
         function checkAnswer(questionNumber, button) {
             const optionsDiv = button.parentElement;
             
-            // If question was already answered, return
             if (optionsDiv.getAttribute('data-answered') === 'true') {
                 return;
             }
 
             const questionButtons = optionsDiv.getElementsByTagName('button');
             
-            // Disable all buttons in this question
             for (let btn of questionButtons) {
                 btn.disabled = true;
             }
 
-            // Mark question as answered
             optionsDiv.setAttribute('data-answered', 'true');
 
-            // Check if this is the correct answer
             if (button.getAttribute('data-correct') === 'true') {
                 button.className = 'correct';
                 correctAnswers++;
             } else {
                 button.className = 'incorrect';
-                // Show the correct answer
                 for (let btn of questionButtons) {
                     if (btn.getAttribute('data-correct') === 'true') {
                         btn.className = 'correct';
@@ -260,70 +287,58 @@
         }
 
         function showResult() {
-    const resultDiv = document.getElementById('result');
-    resultDiv.style.display = 'block';
-    
-    let message;
-    let videoId;
-    let startTime;
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            
+            let message;
+            let videoId;
+            let startTime;
 
-    if (correctAnswers === 15) {
-        message = "Perfect score! You're the most amazing boyfriend ever! 💑";
-        resultDiv.style.background = '#e8f5e9';
-        videoId = 'dQw4w9WgXcQ'; 
-        startTime = 1;
-    } else if (correctAnswers >= 12) {
-        message = "Not bad! You know me pretty well! 💕";
-        resultDiv.style.background = '#fff3e0';
-        videoId = 'VcjzHMhBtf0';
-        startTime = 199; 
-    } else {
-        message = "Well... maybe we need more date nights! 😘";
-        resultDiv.style.background = '#ffebee';
-        videoId = '7wfYIMyS_dI';
-        startTime = 12; 
-    }
-    
-    resultDiv.innerHTML = `
-        <h2>Quiz Complete!</h2>
-        <p>You got ${correctAnswers} out of ${totalAnswers} correct!</p>
-        <p>${message}</p>
-        <p>Happy 2nd Anniversary! ❤️</p>
-        <button onclick="loadVideo()" class="play-button">Click for your special song! 🎵</button>
-        <div id="video-container"></div>
-    `;
-}
+            if (correctAnswers === 15) {
+                message = "Perfect score! You're the most amazing boyfriend ever! 💑";
+                resultDiv.style.background = '#e8f5e9';
+                videoId = 'dQw4w9WgXcQ'; 
+                startTime = 1;
+            } else if (correctAnswers >= 12) {
+                message = "Not bad! You know me pretty well! 💕";
+                resultDiv.style.background = '#fff3e0';
+                videoId = 'VcjzHMhBtf0';
+                startTime = 193; 
+            } else {
+                message = "Well... maybe we need more date nights! 😘";
+                resultDiv.style.background = '#ffebee';
+                videoId = '7wfYIMyS_dI';
+                startTime = 12; 
+            }
+            
+            resultDiv.innerHTML = `
+                <h2>Quiz Complete!</h2>
+                <p>You got ${correctAnswers} out of ${totalAnswers} correct!</p>
+                <p>${message}</p>
+                <p>Happy 2nd Anniversary! ❤️</p>
+                <button onclick="loadVideo()" class="play-button">Click for your special song! 🎵</button>
+                <div id="video-container"></div>
+            `;
+        }
 
-function loadVideo() {
-    const videoContainer = document.getElementById('video-container');
-    const videoId = correctAnswers === 15 ? 'dQw4w9WgXcQ' : 
-                    correctAnswers >= 12 ? 'VcjzHMhBtf0' : '7wfYIMyS_dI';
-    const startTime = correctAnswers === 15 ? 1 : 
-                     correctAnswers >= 12 ? 193 : 12;
-    
-    videoContainer.innerHTML = `
-        <iframe 
-            width="560" 
-            height="315" 
-            src="https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
-    `;
-}
-        .play-button {
-    background: #ff69b4;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    margin: 15px 0;
-    cursor: pointer;
-    font-size: 16px;
-    transition: transform 0.2s;
-}
-
+        function loadVideo() {
+            const videoContainer = document.getElementById('video-container');
+            const videoId = correctAnswers === 15 ? 'dQw4w9WgXcQ' : 
+                            correctAnswers >= 12 ? 'VcjzHMhBtf0' : '7wfYIMyS_dI';
+            const startTime = correctAnswers === 15 ? 1 : 
+                             correctAnswers >= 12 ? 193 : 12;
+            
+            videoContainer.innerHTML = `
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+        }
     </script>
 </body>
 </html>
