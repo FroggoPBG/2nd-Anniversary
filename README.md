@@ -27,12 +27,12 @@ A scientifically* proven method to determine if you've been paying attention dur
   - A thorough relationship PowerPoint presentation
 
 ## 🏆 Scoring System
-- 5/5: You're definitely a keeper! 
-- 4/5: Still pretty good, I'll keep you around
-- 3/5: We need to talk... about having more memorable dates
-- 2/5: Are you sure you're my boyfriend?
-- 1/5: Did we just meet?
-- 0/5: 🚩🚩🚩
+- 15/15: You're definitely a keeper! 
+- 12/15: Still pretty good, I'll keep you around
+- 11/15: We need to talk... about having more memorable dates
+- 8/15: Are you sure you're my boyfriend?
+- 7/15: Did we just meet?
+- anything below 6: 🚩🚩🚩
 
 ## 💝 Special Notes
 - No, your friend cannot help you
