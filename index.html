@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our 2nd Anniversary Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
-            margin: 20px auto;
+            margin: 0 auto;
             padding: 20px;
             background: #f0f8ff;
         }
@@ -19,25 +20,27 @@
         }
         .question {
             margin-bottom: 20px;
-            padding: 10px;
-            background: #f8f9fa;
+            padding: 15px;
             border-radius: 5px;
+            background: #f8f9fa;
         }
-        .answer-btn {
-            display: block;
-            width: 100%;
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        button {
             padding: 10px;
-            margin: 5px 0;
+            margin: 5px;
             border: none;
             border-radius: 5px;
             background: #4CAF50;
             color: white;
             cursor: pointer;
-            text-align: left;
+            transition: background 0.3s;
         }
-        .answer-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
+        button:hover {
+            background: #45a049;
         }
         .correct {
             background: #4CAF50 !important;
@@ -45,117 +48,113 @@
         .incorrect {
             background: #ff4d4d !important;
         }
-        #show-results {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background: #2196F3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-        }
         #result {
             margin-top: 20px;
             padding: 15px;
             border-radius: 5px;
             display: none;
-            text-align: center;
+        }
+        .hearts {
+            color: #ff4d6d;
         }
     </style>
 </head>
 <body>
     <div class="quiz-container">
-        <h1 style="text-align: center">💝 Our 2nd Anniversary Quiz 💝</h1>
-        
-        <div class="question">
-            <h3>1. When was our first date?</h3>
-            <button class="answer-btn" onclick="selectAnswer(this, true)">4th November, 2022</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">2nd November, 2022</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">31st October, 2022</button>
+        <h1>💝 Our 2nd Anniversary Quiz 💝</h1>
+        <div id="quiz">
+            <div class="question">
+                <h3>1. When was our first date?</h3>
+                <div class="options">
+                    <button onclick="checkAnswer(1, this)" data-correct="true">4th November, 2022</button>
+                    <button onclick="checkAnswer(1, this)">2nd November, 2022</button>
+                    <button onclick="checkAnswer(1, this)">31st October, 2022</button>
+                </div>
+            </div>
+            <div class="question">
+                <h3>2. What did we eat on our first date?</h3>
+                <div class="options">
+                    <button onclick="checkAnswer(2, this)" data-correct="true">Alcohol</button>
+                    <button onclick="checkAnswer(2, this)">Vietnamese</button>
+                    <button onclick="checkAnswer(2, this)">Brunch</button>
+                </div>
+            </div>
+            <div class="question">
+                <h3>3. Where was our first kiss?</h3>
+                <div class="options">
+                    <button onclick="checkAnswer(3, this)">Your Home</button>
+                    <button onclick="checkAnswer(3, this)">TST Harbour</button>
+                    <button onclick="checkAnswer(3, this)" data-correct="true">North Point Wharf</button>
+                </div>
+            </div>
+            <div class="question">
+                <h3>4. What's my favorite pet name that you call me?</h3>
+                <div class="options">
+                    <button onclick="checkAnswer(4, this)" data-correct="true">Froggo</button>
+                    <button onclick="checkAnswer(4, this)">Princess Bubble Gum</button>
+                    <button onclick="checkAnswer(4, this)">Princess Blood Diamond</button>
+                </div>
+            </div>
+            <div class="question">
+                <h3>5. What was our first movie together?</h3>
+                <div class="options">
+                    <button onclick="checkAnswer(5, this)">Spider-Man: Across the Spider-Verse</button>
+                    <button onclick="checkAnswer(5, this)">A man called Otto</button>
+                    <button onclick="checkAnswer(5, this)" data-correct="true">Black Panther</button>
+                </div>
+            </div>
+            <button onclick="showResult()">Show Results 💕</button>
         </div>
-
-        <div class="question">
-            <h3>2. What did we eat on our first date?</h3>
-            <button class="answer-btn" onclick="selectAnswer(this, true)">Alcohol</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">Vietnamese</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">Brunch</button>
-        </div>
-
-        <div class="question">
-            <h3>3. Where was our first kiss?</h3>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">Your Home</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">TST Harbour</button>
-            <button class="answer-btn" onclick="selectAnswer(this, true)">North Point Wharf</button>
-        </div>
-
-        <div class="question">
-            <h3>4. What's my favorite pet name that you call me?</h3>
-            <button class="answer-btn" onclick="selectAnswer(this, true)">Froggo</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">Princess Bubble Gum</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">Princess Blood Diamond</button>
-        </div>
-
-        <div class="question">
-            <h3>5. What was our first movie together?</h3>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">Spider-Man: Across the Spider-Verse</button>
-            <button class="answer-btn" onclick="selectAnswer(this, false)">A man called Otto</button>
-            <button class="answer-btn" onclick="selectAnswer(this, true)">Black Panther</button>
-        </div>
-
-        <button id="show-results" onclick="showResults()">Show Results 💕</button>
         <div id="result"></div>
     </div>
 
     <script>
-        var score = 0;
-        var answeredQuestions = 0;
+        let correctAnswers = 0;
+        let totalAnswers = 0;
 
-        function selectAnswer(button, isCorrect) {
-            var questionDiv = button.parentElement;
-            var buttons = questionDiv.getElementsByClassName('answer-btn');
+        function checkAnswer(questionNumber, button) {
+            const questionButtons = button.parentElement.getElementsByTagName('button');
             
-            // If already answered, return
-            if (buttons[0].disabled) return;
-            
-            // Disable all buttons in this question
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].disabled = true;
+            // Reset all buttons in this question
+            for (let btn of questionButtons) {
+                btn.className = '';
             }
-            
-            if (isCorrect) {
-                button.classList.add('correct');
-                score++;
+
+            // Check if this is the correct answer
+            if (button.getAttribute('data-correct') === 'true') {
+                button.className = 'correct';
+                correctAnswers++;
             } else {
-                button.classList.add('incorrect');
-                // Show correct answer
-                for (var i = 0; i < buttons.length; i++) {
-                    if (buttons[i].onclick.toString().includes('true')) {
-                        buttons[i].classList.add('correct');
+                button.className = 'incorrect';
+                // Show the correct answer
+                for (let btn of questionButtons) {
+                    if (btn.getAttribute('data-correct') === 'true') {
+                        btn.className = 'correct';
                     }
                 }
             }
-            answeredQuestions++;
+            totalAnswers++;
         }
 
-        function showResults() {
-            var resultDiv = document.getElementById('result');
+        function showResult() {
+            const resultDiv = document.getElementById('result');
             resultDiv.style.display = 'block';
             
-            var message;
-            if (score === 5) {
+            let message;
+            if (correctAnswers === 5) {
                 message = "Perfect score! You're the most amazing boyfriend ever! 💑";
-            } else if (score >= 3) {
+                resultDiv.style.background = '#e8f5e9';
+            } else if (correctAnswers >= 3) {
                 message = "Not bad! You know me pretty well! 💕";
+                resultDiv.style.background = '#fff3e0';
             } else {
                 message = "Well... maybe we need more date nights! 😘";
+                resultDiv.style.background = '#ffebee';
             }
             
             resultDiv.innerHTML = `
                 <h2>Quiz Complete!</h2>
-                <p>You got ${score} out of 5 correct!</p>
+                <p>You got ${correctAnswers} out of ${totalAnswers} correct!</p>
                 <p>${message}</p>
                 <p>Happy 2nd Anniversary! ❤️</p>
             `;
