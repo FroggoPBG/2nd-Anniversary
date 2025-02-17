@@ -7,27 +7,18 @@
     <style>
         .video-container {
     position: relative;
-    width: 100%;
-    max-width: 500px; /* Made this smaller */
-    margin: 0 auto;
-    padding: 20px;
-    background: #ffe6e6; /* Light pink background to match your theme */
-    border-radius: 8px;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    margin-top: 20px;
 }
 
 .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 8px;
-    border: none;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f0f8ff;
+    height: 100%;
 }
 
 .quiz-container {
@@ -87,22 +78,6 @@ button:disabled {
 
 .hearts {
     color: #ff4d6d;
-}
-
-.play-button {
-    background: #ff69b4;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    margin: 15px 0;
-    cursor: pointer;
-    font-size: 16px;
-    transition: transform 0.2s;
-}
-
-.play-button:hover {
-    transform: scale(1.05);
 }
     </style>
 </head>
