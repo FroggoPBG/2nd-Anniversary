@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our 2nd Anniversary Quiz</title>
     <style>
+        .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -249,15 +264,20 @@
             resultDiv.style.display = 'block';
             
             let message;
+            let videoId;
+
             if (correctAnswers === 15) {
                 message = "Perfect score! You're the most amazing boyfriend ever! 💑";
                 resultDiv.style.background = '#e8f5e9';
+                videoId = 'dQw4w9WgXcQ'; 
             } else if (correctAnswers >= 12) {
                 message = "Not bad! You know me pretty well! 💕";
                 resultDiv.style.background = '#fff3e0';
+                videoId = 'VcjzHMhBtf0';
             } else {
                 message = "Well... maybe we need more date nights! 😘";
                 resultDiv.style.background = '#ffebee';
+                videoId = '7wfYIMyS_dI';
             }
             
             resultDiv.innerHTML = `
@@ -265,6 +285,16 @@
                 <p>You got ${correctAnswers} out of ${totalAnswers} correct!</p>
                 <p>${message}</p>
                 <p>Happy 2nd Anniversary! ❤️</p>
+                <div class="video-container">
+                    <iframe 
+                        width="560" 
+                        height="315" 
+                        src="https://www.youtube.com/embed/${videoId}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
             `;
         }
     </script>
