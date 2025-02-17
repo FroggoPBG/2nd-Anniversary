@@ -191,7 +191,7 @@
             <div class="question">
                 <h3>15. Do I have a birthmark?</h3>
                 <div class="options" data-answered="false">
-                    <button onclick="checkAnswer(15, this)">Yes on my leg</button>
+                    <button onclick="checkAnswer(15, this)">Yes on your leg</button>
                     <button onclick="checkAnswer(15, this)">No</button>
                     <button onclick="checkAnswer(15, this)" data-correct="true">Yes on your back</button>
                 </div>
@@ -249,10 +249,10 @@
             resultDiv.style.display = 'block';
             
             let message;
-            if (correctAnswers === 5) {
+            if (correctAnswers === 15) {
                 message = "Perfect score! You're the most amazing boyfriend ever! 💑";
                 resultDiv.style.background = '#e8f5e9';
-            } else if (correctAnswers >= 3) {
+            } else if (correctAnswers >= 12) {
                 message = "Not bad! You know me pretty well! 💕";
                 resultDiv.style.background = '#fff3e0';
             } else {
