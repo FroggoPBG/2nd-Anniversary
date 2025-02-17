@@ -265,7 +265,7 @@
     
     let message;
     let videoId;
-    let startTime; // Declare startTime variable
+    let startTime;
 
     if (correctAnswers === 15) {
         message = "Perfect score! You're the most amazing boyfriend ever! 💑";
@@ -276,12 +276,12 @@
         message = "Not bad! You know me pretty well! 💕";
         resultDiv.style.background = '#fff3e0';
         videoId = 'VcjzHMhBtf0';
-        startTime = 199; 
+        startTime = 193; 
     } else {
         message = "Well... maybe we need more date nights! 😘";
         resultDiv.style.background = '#ffebee';
         videoId = '7wfYIMyS_dI';
-        startTime = 11; 
+        startTime = 12; 
     }
     
     resultDiv.innerHTML = `
@@ -289,17 +289,43 @@
         <p>You got ${correctAnswers} out of ${totalAnswers} correct!</p>
         <p>${message}</p>
         <p>Happy 2nd Anniversary! ❤️</p>
-        <div class="video-container">
-            <iframe 
-                width="560" 
-                height="315" 
-                src="https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
-        </div>
+        <button onclick="loadVideo()" class="play-button">Click for your special song! 🎵</button>
+        <div id="video-container"></div>
     `;
+}
+
+function loadVideo() {
+    const videoContainer = document.getElementById('video-container');
+    const videoId = correctAnswers === 15 ? 'dQw4w9WgXcQ' : 
+                    correctAnswers >= 12 ? 'VcjzHMhBtf0' : '7wfYIMyS_dI';
+    const startTime = correctAnswers === 15 ? 1 : 
+                     correctAnswers >= 12 ? 193 : 12;
+    
+    videoContainer.innerHTML = `
+        <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    `;
+}
+        .play-button {
+    background: #ff69b4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+
+.play-button:hover {
+    transform: scale(1.05);
 }
     </script>
 </body>
