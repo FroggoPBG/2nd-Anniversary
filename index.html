@@ -24,160 +24,143 @@
             border-radius: 5px;
             background: #f8f9fa;
         }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        button {
+        .option {
+            display: block;
+            width: 100%;
             padding: 10px;
-            margin: 5px;
+            margin: 5px 0;
             border: none;
             border-radius: 5px;
             background: #4CAF50;
             color: white;
             cursor: pointer;
             transition: background 0.3s;
+            text-align: left;
         }
-        button:hover {
+        .option:hover {
             background: #45a049;
         }
-        button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
+        .option.selected {
+            background: #2196F3;
         }
-        .correct {
+        .option.correct {
             background: #4CAF50 !important;
         }
-        .incorrect {
+        .option.incorrect {
             background: #ff4d4d !important;
+        }
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
         }
         #result {
             margin-top: 20px;
             padding: 15px;
             border-radius: 5px;
+            text-align: center;
             display: none;
-        }
-        .hearts {
-            color: #ff4d6d;
         }
     </style>
 </head>
 <body>
     <div class="quiz-container">
-        <h1>💝 Our 2nd Anniversary Quiz 💝</h1>
+        <h1 style="text-align: center">💝 Our 2nd Anniversary Quiz 💝</h1>
         <div id="quiz">
             <div class="question">
                 <h3>1. When was our first date?</h3>
-                <div class="options" data-answered="false">
-                    <button onclick="checkAnswer(1, this)" data-correct="true">4th November, 2022</button>
-                    <button onclick="checkAnswer(1, this)">2nd November, 2022</button>
-                    <button onclick="checkAnswer(1, this)">31st October, 2022</button>
-                </div>
+                <button class="option" data-correct="true">4th November, 2022</button>
+                <button class="option">2nd November, 2022</button>
+                <button class="option">31st October, 2022</button>
             </div>
             <div class="question">
                 <h3>2. What did we eat on our first date?</h3>
-                <div class="options" data-answered="false">
-                    <button onclick="checkAnswer(2, this)" data-correct="true">Alcohol</button>
-                    <button onclick="checkAnswer(2, this)">Vietnamese</button>
-                    <button onclick="checkAnswer(2, this)">Brunch</button>
-                </div>
+                <button class="option" data-correct="true">Alcohol</button>
+                <button class="option">Vietnamese</button>
+                <button class="option">Brunch</button>
             </div>
             <div class="question">
                 <h3>3. Where was our first kiss?</h3>
-                <div class="options" data-answered="false">
-                    <button onclick="checkAnswer(3, this)">Your Home</button>
-                    <button onclick="checkAnswer(3, this)">TST Harbour</button>
-                    <button onclick="checkAnswer(3, this)" data-correct="true">North Point Wharf</button>
-                </div>
+                <button class="option">Your Home</button>
+                <button class="option">TST Harbour</button>
+                <button class="option" data-correct="true">North Point Wharf</button>
             </div>
             <div class="question">
                 <h3>4. What's my favorite pet name that you call me?</h3>
-                <div class="options" data-answered="false">
-                    <button onclick="checkAnswer(4, this)" data-correct="true">Froggo</button>
-                    <button onclick="checkAnswer(4, this)">Princess Bubble Gum</button>
-                    <button onclick="checkAnswer(4, this)">Princess Blood Diamond</button>
-                </div>
+                <button class="option" data-correct="true">Froggo</button>
+                <button class="option">Princess Bubble Gum</button>
+                <button class="option">Princess Blood Diamond</button>
             </div>
             <div class="question">
                 <h3>5. What was our first movie together?</h3>
-                <div class="options" data-answered="false">
-                    <button onclick="checkAnswer(5, this)">Spider-Man: Across the Spider-Verse</button>
-                    <button onclick="checkAnswer(5, this)">A man called Otto</button>
-                    <button onclick="checkAnswer(5, this)" data-correct="true">Black Panther</button>
-                </div>
+                <button class="option">Spider-Man: Across the Spider-Verse</button>
+                <button class="option">A man called Otto</button>
+                <button class="option" data-correct="true">Black Panther</button>
             </div>
-            <button onclick="showResult()">Show Results 💕</button>
+            <button id="submit-btn">Show Results 💕</button>
         </div>
         <div id="result"></div>
     </div>
 
     <script>
-        let correctAnswers = 0;
-        let totalAnswers = 0;
-        const answeredQuestions = new Set();
-
-        function checkAnswer(questionNumber, button) {
-            const optionsDiv = button.parentElement;
+        document.addEventListener('DOMContentLoaded', function() {
+            let score = 0;
+            const questions = document.querySelectorAll('.question');
             
-            // If question was already answered, return
-            if (optionsDiv.getAttribute('data-answered') === 'true') {
-                return;
-            }
+            questions.forEach(question => {
+                const options = question.querySelectorAll('.option');
+                let answered = false;
+                
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        if (answered) return;
+                        
+                        answered = true;
+                        options.forEach(opt => opt.disabled = true);
+                        
+                        if (this.getAttribute('data-correct') === 'true') {
+                            this.classList.add('correct');
+                            score++;
+                        } else {
+                            this.classList.add('incorrect');
+                            options.forEach(opt => {
+                                if (opt.getAttribute('data-correct') === 'true') {
+                                    opt.classList.add('correct');
+                                }
+                            });
+                        }
+                    });
+                });
+            });
 
-            const questionButtons = optionsDiv.getElementsByTagName('button');
-            
-            // Disable all buttons in this question
-            for (let btn of questionButtons) {
-                btn.disabled = true;
-            }
-
-            // Mark question as answered
-            optionsDiv.setAttribute('data-answered', 'true');
-
-            // Check if this is the correct answer
-            if (button.getAttribute('data-correct') === 'true') {
-                button.className = 'correct';
-                correctAnswers++;
-            } else {
-                button.className = 'incorrect';
-                // Show the correct answer
-                for (let btn of questionButtons) {
-                    if (btn.getAttribute('data-correct') === 'true') {
-                        btn.className = 'correct';
-                    }
+            document.getElementById('submit-btn').addEventListener('click', function() {
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                
+                let message;
+                if (score === 5) {
+                    message = "Perfect score! You're the most amazing boyfriend ever! 💑";
+                } else if (score >= 3) {
+                    message = "Not bad! You know me pretty well! 💕";
+                } else {
+                    message = "Well... maybe we need more date nights! 😘";
                 }
-            }
-            
-            if (!answeredQuestions.has(questionNumber)) {
-                totalAnswers++;
-                answeredQuestions.add(questionNumber);
-            }
-        }
-
-        function showResult() {
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'block';
-            
-            let message;
-            if (correctAnswers === 5) {
-                message = "Perfect score! You're the most amazing boyfriend ever! 💑";
-                resultDiv.style.background = '#e8f5e9';
-            } else if (correctAnswers >= 3) {
-                message = "Not bad! You know me pretty well! 💕";
-                resultDiv.style.background = '#fff3e0';
-            } else {
-                message = "Well... maybe we need more date nights! 😘";
-                resultDiv.style.background = '#ffebee';
-            }
-            
-            resultDiv.innerHTML = `
-                <h2>Quiz Complete!</h2>
-                <p>You got ${correctAnswers} out of ${totalAnswers} correct!</p>
-                <p>${message}</p>
-                <p>Happy 2nd Anniversary! ❤️</p>
-            `;
-        }
+                
+                resultDiv.innerHTML = `
+                    <h2>Quiz Complete!</h2>
+                    <p>You got ${score} out of 5 correct!</p>
+                    <p>${message}</p>
+                    <p>Happy 2nd Anniversary! ❤️</p>
+                `;
+            });
+        });
     </script>
 </body>
 </html>
