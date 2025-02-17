@@ -13,9 +13,11 @@ A scientifically* proven method to determine if you've been paying attention dur
 ## 📝 Instructions
 1. Take a deep breath
 2. Remember that the couch is uncomfortable to sleep on
-3. Click the answers you think are correct
+3. [Click here to start the quiz!](https://froggopbg.github.io/2nd-Anniversary/) 
 4. Pray you remember our first date details
 5. Cross your fingers and check your score
+
+[💝 Take the Quiz Now! 💝](https://froggopbg.github.io/2nd-Anniversary/)
 
 ## ⚠️ Warnings
 - Wrong answers may result in:
@@ -49,9 +51,6 @@ By taking this quiz, you agree that:
 - All results can and will be used against you in future arguments
 - Screenshots may be shared with my girlfriends
 - Correct answers must be celebrated with kisses
-
-## 🎮 Ready to Play?
-Click the link to start! Good luck, you'll need it! 😘
 
 ---
 Made with 💕 and a healthy dose of relationship anxiety
