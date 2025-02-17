@@ -42,6 +42,10 @@
         button:hover {
             background: #45a049;
         }
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
         .correct {
             background: #4CAF50 !important;
         }
@@ -65,7 +69,7 @@
         <div id="quiz">
             <div class="question">
                 <h3>1. When was our first date?</h3>
-                <div class="options">
+                <div class="options" data-answered="false">
                     <button onclick="checkAnswer(1, this)" data-correct="true">4th November, 2022</button>
                     <button onclick="checkAnswer(1, this)">2nd November, 2022</button>
                     <button onclick="checkAnswer(1, this)">31st October, 2022</button>
@@ -73,7 +77,7 @@
             </div>
             <div class="question">
                 <h3>2. What did we eat on our first date?</h3>
-                <div class="options">
+                <div class="options" data-answered="false">
                     <button onclick="checkAnswer(2, this)" data-correct="true">Alcohol</button>
                     <button onclick="checkAnswer(2, this)">Vietnamese</button>
                     <button onclick="checkAnswer(2, this)">Brunch</button>
@@ -81,7 +85,7 @@
             </div>
             <div class="question">
                 <h3>3. Where was our first kiss?</h3>
-                <div class="options">
+                <div class="options" data-answered="false">
                     <button onclick="checkAnswer(3, this)">Your Home</button>
                     <button onclick="checkAnswer(3, this)">TST Harbour</button>
                     <button onclick="checkAnswer(3, this)" data-correct="true">North Point Wharf</button>
@@ -89,7 +93,7 @@
             </div>
             <div class="question">
                 <h3>4. What's my favorite pet name that you call me?</h3>
-                <div class="options">
+                <div class="options" data-answered="false">
                     <button onclick="checkAnswer(4, this)" data-correct="true">Froggo</button>
                     <button onclick="checkAnswer(4, this)">Princess Bubble Gum</button>
                     <button onclick="checkAnswer(4, this)">Princess Blood Diamond</button>
@@ -97,7 +101,7 @@
             </div>
             <div class="question">
                 <h3>5. What was our first movie together?</h3>
-                <div class="options">
+                <div class="options" data-answered="false">
                     <button onclick="checkAnswer(5, this)">Spider-Man: Across the Spider-Verse</button>
                     <button onclick="checkAnswer(5, this)">A man called Otto</button>
                     <button onclick="checkAnswer(5, this)" data-correct="true">Black Panther</button>
@@ -111,14 +115,25 @@
     <script>
         let correctAnswers = 0;
         let totalAnswers = 0;
+        const answeredQuestions = new Set();
 
         function checkAnswer(questionNumber, button) {
-            const questionButtons = button.parentElement.getElementsByTagName('button');
+            const optionsDiv = button.parentElement;
             
-            // Reset all buttons in this question
-            for (let btn of questionButtons) {
-                btn.className = '';
+            // If question was already answered, return
+            if (optionsDiv.getAttribute('data-answered') === 'true') {
+                return;
             }
+
+            const questionButtons = optionsDiv.getElementsByTagName('button');
+            
+            // Disable all buttons in this question
+            for (let btn of questionButtons) {
+                btn.disabled = true;
+            }
+
+            // Mark question as answered
+            optionsDiv.setAttribute('data-answered', 'true');
 
             // Check if this is the correct answer
             if (button.getAttribute('data-correct') === 'true') {
@@ -133,7 +148,11 @@
                     }
                 }
             }
-            totalAnswers++;
+            
+            if (!answeredQuestions.has(questionNumber)) {
+                totalAnswers++;
+                answeredQuestions.add(questionNumber);
+            }
         }
 
         function showResult() {
